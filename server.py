@@ -48,13 +48,19 @@ def login_to_EagleEye(een):
 def check_cookie():
     #check if auth_key is valid
     if output['auth_key']:
-        response = een.session.request("GET", "https://login.eagleeyenetworks.com/g/aaa/isauth")
-        if response.status_code == 200:
-            print(f"cookie is still good {een.session.cookies['auth_key']}")
-            output['auth_key'] = een.session.cookies['auth_key']
-        else:
-            print(f"isauth check failed with {response.status_code}")
+        try:
+            response = een.session.request("GET", "https://login.eagleeyenetworks.com/g/aaa/isauth")
+            if response.status_code == 200:
+                print(f"cookie is still good {een.session.cookies['auth_key']}")
+                output['auth_key'] = een.session.cookies['auth_key']
+            else:
+                print(f"isauth check failed with {response.status_code}")
+                login_to_EagleEye(een)
+
+        except ConnectionError as e:
+            print(f"failed on call to check auth_key, logging-in again")
             login_to_EagleEye(een)
+            
     else:
         print(f"auth_key is set to {output['auth_key']}")
         login_to_EagleEye(een)
