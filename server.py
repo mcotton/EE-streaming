@@ -65,5 +65,5 @@ def check_cookie():
 l = task.LoopingCall(check_cookie)
 l.start(timeout) # call every sixty seconds
 
-endpoints.serverFromString(reactor, "tcp:8080").listen(server.Site(Counter()))
+endpoints.serverFromString(reactor, "tcp:3002").listen(server.Site(Counter()))
 reactor.run()
