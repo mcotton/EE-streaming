@@ -13,7 +13,8 @@ import json
 output = { 
             "cameras": None,
             "auth_key": None,
-            "account": None
+            "account": None,
+            "active_brand_subdomain": None
         }
 
 
@@ -41,6 +42,7 @@ def login_to_EagleEye(een):
         print(f"login succeeded, updating devices and cookie {een.session.cookies['auth_key']}")
         output['auth_key'] = een.session.cookies['auth_key']
         output['account'] = een.user['active_account_id']
+        output['active_brand_subdomain'] = een.user['active_brand_subdomain']
         output['cameras'] = [{"id": i.camera_id, "name": i.name} for i in een.cameras] 
     else:
         print("login_to_EagleEye failed")
