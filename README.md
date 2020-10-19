@@ -10,7 +10,7 @@ Make sure you have valid credentials in  `local_settings.py`
 
 
 ## Usage ##
-TODO:
+Please see the included example `demo.html`
 
 
 ## Troubleshooting ##
