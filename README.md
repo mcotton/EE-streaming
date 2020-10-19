@@ -10,7 +10,11 @@ Make sure you have valid credentials in  `local_settings.py`
 
 
 ## Usage ##
-Please see the included example `demo.html`
+This project includes two working demos.  For embedding live video in a webpage with needed to authorize please see:
+`demo-live_video.html` 
+
+For embedding live preview stream through websockets, please see:
+`demo-live_preview.html`
 
 
 ## Troubleshooting ##
