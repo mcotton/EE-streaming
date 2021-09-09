@@ -18,8 +18,6 @@ output = {
         }
 
 
-timeout = 300
-
 class Counter(resource.Resource):
     isLeaf = True
 
@@ -43,7 +41,9 @@ def login_to_EagleEye(een):
         output['auth_key'] = een.session.cookies['auth_key']
         output['account'] = een.user['active_account_id']
         output['active_brand_subdomain'] = een.user['active_brand_subdomain']
-        output['cameras'] = [{"id": i.camera_id, "name": i.name} for i in een.cameras] 
+        #output['cameras'] = [{"id": i.camera_id, "name": i.name} for i in een.cameras] 
+        # filtering out the Koi pond camera because it doesn't have the bandwidth to live stream
+        output['cameras'] = [{"id": i.camera_id, "name": i.name} for i in een.cameras if i.camera_id != '100f3e82'] 
     else:
         print("login_to_EagleEye failed")
 
@@ -73,7 +73,7 @@ def check_cookie():
 
 
 l = task.LoopingCall(check_cookie)
-l.start(timeout) # call every sixty seconds
+l.start(30)
 
 endpoints.serverFromString(reactor, "tcp:3002").listen(server.Site(Counter()))
 reactor.run()
