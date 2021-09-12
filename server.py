@@ -60,10 +60,12 @@ def check_cookie():
             else:
                 print(f"isauth check failed with {response.status_code}")
                 login_to_EagleEye(een)
+                output['auth_key'] = None
 
         except ConnectionError as e:
             print(f"failed on call to check auth_key, logging-in again")
             login_to_EagleEye(een)
+            output['auth_key'] = None
             
     else:
         print(f"auth_key is set to {output['auth_key']}")
@@ -73,7 +75,7 @@ def check_cookie():
 
 
 l = task.LoopingCall(check_cookie)
-l.start(30)
+l.start(120)
 
 endpoints.serverFromString(reactor, "tcp:3002").listen(server.Site(Counter()))
 reactor.run()
