@@ -42,8 +42,8 @@ def login_to_EagleEye(een):
         output['account'] = een.user['active_account_id']
         output['active_brand_subdomain'] = een.user['active_brand_subdomain']
         #output['cameras'] = [{"id": i.camera_id, "name": i.name} for i in een.cameras] 
-        # filtering out the Koi pond camera because it doesn't have the bandwidth to live stream
-        output['cameras'] = [{"id": i.camera_id, "name": i.name} for i in een.cameras if i.camera_id != '100f3e82'] 
+        # filtering out everything but the lobby camera
+        output['cameras'] = [{"id": i.camera_id, "name": i.name} for i in een.cameras if i.camera_id == '100a54ec'] 
     else:
         print("login_to_EagleEye failed")
 
